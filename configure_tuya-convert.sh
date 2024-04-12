@@ -9,5 +9,8 @@ set -o pipefail #Pipe will exit with last non-zero status if applicable
 cd /root/tuya-convert
 find ./ -name \*.sh -exec sed -i -e "s/sudo \(-\S\+ \)*//" {} \;
 
+apt update
+apt install iw
+
 WLAN=$(iw dev | sed -n 's/[[:space:]]Interface \(.*\)/\1/p')
 sed -i "s/^\(WLAN=\)\(.*\)/\1$WLAN/" config.txt
