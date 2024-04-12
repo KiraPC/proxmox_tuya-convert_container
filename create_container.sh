@@ -192,7 +192,7 @@ ARCH=$(dpkg --print-architecture)
 HOSTNAME=tuya-convert
 TEMPLATE_STRING="local:vztmpl/${TEMPLATE}"
 pct create $CTID $TEMPLATE_STRING -arch $ARCH -cores 1 -hostname $HOSTNAME \
-  -net0 name=eth0,bridge=vmbr0,ip=dhcp -ostype $OSTYPE \
+  -net0 name=eth0,bridge=vmbr0,ip=dhcp -ostype $OSTYPE -password 12345 \
   -rootfs $ROOTFS -storage $STORAGE >/dev/null
 
 # Pass network interface to LXC
@@ -215,7 +215,7 @@ pct push $CTID commit_switcher.sh /root/commit_switcher.sh -perms 755
 pct push $CTID configure_tuya-convert.sh /root/configure_tuya-convert.sh -perms 755
 pct push $CTID install_tuya-convert.sh /root/install_tuya-convert.sh -perms 755
 pct push $CTID login.sh /root/login.sh -perms 755
-pct exec $CTID /root/install_tuya-convert.sh $LANG
+# pct exec $CTID /root/install_tuya-convert.sh $LANG
 pct stop $CTID
 
 info "Successfully created tuya-convert LXC to $CTID."
